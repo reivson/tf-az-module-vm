@@ -1,0 +1,26 @@
+# Exemplo de configuração para VM Linux básica
+
+# Configurações básicas
+resource_group_name = "rg-vm-linux-example"
+location           = "East US"
+vm_name            = "vm-linux-example"
+vm_size            = "Standard_B2s"
+
+# Configurações de acesso
+admin_username = "azureuser"
+# Opção 1: Usar SSH Key (recomendado)
+# ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ... seu-usuario@hostname"
+
+# Opção 2: Usar senha (para teste apenas)
+admin_password = "TerraformExample123!"
+
+# Rede
+create_public_ip = true
+
+# Tags
+tags = {
+  Environment = "development"
+  Project     = "terraform-module-example"
+  Owner       = "DevOps Team"
+  Purpose     = "Testing VM Module"
+}

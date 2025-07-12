@@ -1,0 +1,59 @@
+# Exemplo de configuração para testar diferentes distribuições Linux
+
+# Configurações básicas
+resource_group_name = "rg-linux-distributions"
+location           = "East US"
+base_name          = "vm-distro"
+vm_size            = "Standard_B2s"
+
+# Configurações de acesso
+admin_username = "azureuser"
+# Opção 1: Usar SSH Key (recomendado)
+# ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ... seu-usuario@hostname"
+
+# Opção 2: Usar senha (para teste apenas)
+admin_password = "LinuxDistroTest123!"
+
+# Rede
+create_public_ip = true
+
+# Controlar quais distribuições criar
+create_ubuntu  = true   # Ubuntu 22.04 LTS
+create_centos  = false  # CentOS 8.5
+create_rhel    = false  # Red Hat Enterprise Linux 8
+create_oracle  = false  # Oracle Linux 8.5
+create_suse    = false  # SUSE Linux Enterprise Server 15 SP3
+create_rocky   = false  # Rocky Linux 8
+
+# Tags
+tags = {
+  Environment = "development"
+  Project     = "linux-distributions-test"
+  Owner       = "DevOps Team"
+  Purpose     = "Testing Multiple Linux Distributions"
+  CostCenter  = "IT-Testing"
+}
+
+# Exemplos de configurações para diferentes cenários:
+
+# Cenário 1: Apenas Ubuntu (padrão)
+# create_ubuntu = true
+# Todos os outros = false
+
+# Cenário 2: Testar distribuições Red Hat
+# create_centos = true
+# create_rhel   = true
+# create_rocky  = true
+
+# Cenário 3: Testar distribuições comerciais
+# create_rhel   = true
+# create_oracle = true
+# create_suse   = true
+
+# Cenário 4: Criar todas as distribuições (cuidado com custos!)
+# create_ubuntu = true
+# create_centos = true
+# create_rhel   = true
+# create_oracle = true
+# create_suse   = true
+# create_rocky  = true

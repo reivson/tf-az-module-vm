@@ -1,0 +1,27 @@
+# Exemplo de configuração para VM Windows com disco adicional
+
+# Configurações básicas
+resource_group_name = "rg-vm-windows-example"
+location           = "East US"
+vm_name            = "vm-windows-example"
+vm_size            = "Standard_D2s_v3"
+
+# Configurações de acesso
+admin_username = "azureadmin"
+admin_password = "WindowsExample123!"
+
+# Rede
+create_public_ip = true
+
+# Configurações de disco
+os_disk_size_gb   = 128
+data_disk_size_gb = 100
+
+# Tags
+tags = {
+  Environment = "development"
+  Project     = "terraform-module-example"
+  Owner       = "DevOps Team"
+  OS          = "Windows"
+  Purpose     = "Testing VM Module with Data Disk"
+}
