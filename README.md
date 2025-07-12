@@ -1,6 +1,6 @@
 # Azure Virtual Machine Terraform Module
 
-[![Terraform Version](https://img.shields.io/badge/terraform-%3E%3D1.0-blue.svg)](https://www.terraform.io/downloads.html)
+[![Terraform Version](https://img.shields.io/badge/terraform-%3E%3D1.2-blue.svg)](https://www.terraform.io/downloads.html)
 [![Azure Provider Version](https://img.shields.io/badge/azurerm-%3E%3D3.0-blue.svg)](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/your-org/tf-az-module-vm)](https://github.com/your-org/tf-az-module-vm/releases)
