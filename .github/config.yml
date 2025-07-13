@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussões da Comunidade
+    url: https://github.com/reivson/tf-az-module-vm/discussions
+    about: Para discussões gerais, ideias e feedback da comunidade
+  - name: 📖 Wiki do Projeto
+    url: https://github.com/reivson/tf-az-module-vm/wiki
+    about: Documentação detalhada e guias avançados
+  - name: 🐛 Terraform Issues
+    url: https://github.com/hashicorp/terraform/issues
+    about: Para problemas relacionados ao próprio Terraform
+  - name: ☁️ Azure Provider Issues
+    url: https://github.com/hashicorp/terraform-provider-azurerm/issues
+    about: Para problemas relacionados ao provider AzureRM

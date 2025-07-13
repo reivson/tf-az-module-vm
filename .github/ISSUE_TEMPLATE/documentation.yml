@@ -1,0 +1,72 @@
+name: 📚 Documentation
+description: Melhorias na documentação ou exemplos
+title: "[DOCS] "
+labels: ["documentation", "good first issue"]
+assignees:
+  - reivson
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por ajudar a melhorar nossa documentação! 📖
+
+  - type: dropdown
+    id: doc_type
+    attributes:
+      label: 📝 Tipo de Documentação
+      description: Que tipo de melhoria na documentação você está sugerindo?
+      options:
+        - "📖 README - Documentação principal"
+        - "💡 Exemplos - Novos exemplos de uso"
+        - "🔧 Variáveis - Documentação de variáveis"
+        - "📤 Outputs - Documentação de outputs"
+        - "🎯 Use Cases - Casos de uso específicos"
+        - "❓ FAQ - Perguntas frequentes"
+        - "🚀 Getting Started - Guia de início rápido"
+        - "📋 Changelog - Notas de release"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_state
+    attributes:
+      label: 📊 Estado Atual
+      description: Qual o problema com a documentação atual?
+      placeholder: "A documentação atual não explica como..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: improvement
+    attributes:
+      label: ✨ Melhoria Proposta
+      description: Como você sugere melhorar a documentação?
+      placeholder: "Sugiro adicionar uma seção que explique..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: example_content
+    attributes:
+      label: 📝 Conteúdo Sugerido
+      description: Se possível, forneça um exemplo do conteúdo proposto
+      render: markdown
+
+  - type: checkboxes
+    id: audience
+    attributes:
+      label: 👥 Público-Alvo
+      description: Para quem esta documentação seria mais útil?
+      options:
+        - label: "🔰 Iniciantes em Terraform"
+        - label: "⚡ Usuários experientes"
+        - label: "🏢 Equipes empresariais"
+        - label: "🛠️ Contribuidores"
+        - label: "📚 Todos os usuários"
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: 💬 Contexto Adicional
+      description: Qualquer outra informação relevante

@@ -1,137 +1,185 @@
-# Security Policy
+# 🔒 Security Policy
 
-## Supported Versions
+## 🛡️ Versões Suportadas
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.x.x   | :white_check_mark: |
-| < 1.0   | :x:                |
+Mantemos suporte de segurança para as seguintes versões:
 
-## Reporting a Vulnerability
+| Versão | Suportada          |
+| ------ | ------------------ |
+| 1.x.x  | ✅ Sim             |
+| 0.x.x  | ❌ Não (deprecated) |
 
-Se você descobrir uma vulnerabilidade de segurança, por favor **NÃO** abra uma issue pública. 
+## 🚨 Reportando Vulnerabilidades de Segurança
 
-### Como Reportar
+A segurança do nosso módulo é levada muito a sério. Se você descobrir uma vulnerabilidade de segurança, por favor **NÃO** abra uma issue pública.
 
-1. Envie um email para: `security@your-org.com`
-2. Inclua:
-   - Descrição da vulnerabilidade
-   - Passos para reproduzir
+### 📧 Processo de Reporte
+
+1. **Envie um email para**: [reivson@example.com](mailto:reivson@example.com)
+2. **Inclua as seguintes informações**:
+   - Descrição detalhada da vulnerabilidade
+   - Passos para reproduzir o problema
    - Impacto potencial
-   - Versão afetada
-   - Sugestão de correção (se tiver)
+   - Versão afetada do módulo
+   - Qualquer informação adicional relevante
 
-### O que Esperar
+### ⏱️ Tempo de Resposta
 
-- **Confirmação**: Resposta em até 48 horas
-- **Análise**: Avaliação inicial em até 5 dias úteis
-- **Correção**: Timeline baseada na severidade
-- **Disclosure**: Coordenado após correção
+- **Confirmação inicial**: 48 horas
+- **Avaliação detalhada**: 7 dias
+- **Correção e release**: 30 dias (dependendo da complexidade)
 
-### Severidade
+### 🔐 Processo de Correção
 
-- **Crítica**: Exposição de credenciais, RCE
-- **Alta**: Elevação de privilégios, data exposure
-- **Média**: DoS, information disclosure
-- **Baixa**: Configurações inadequadas
+1. **Verificação** - Confirmamos e reproduzimos a vulnerabilidade
+2. **Desenvolvimento** - Criamos uma correção em repositório privado
+3. **Teste** - Testamos a correção extensivamente
+4. **Release** - Publicamos patch de segurança
+5. **Divulgação** - Comunicamos após correção estar disponível
 
-## Melhores Práticas de Segurança
+## 🛡️ Práticas de Segurança
 
 ### Para Usuários do Módulo
 
-1. **Credenciais**
-   - Nunca hardcode senhas no código
-   - Use Azure Key Vault para secrets
-   - Prefira SSH keys para Linux VMs
-   - Use identidades gerenciadas quando possível
+1. **Mantenha versões atualizadas**
+   ```hcl
+   module "vm" {
+     source = "github.com/reivson/tf-az-module-vm?ref=v1.2.3" # Use versão específica
+     # ...
+   }
+   ```
 
-2. **Rede**
-   - Revise regras do NSG antes de aplicar
-   - Use IPs públicos apenas quando necessário
-   - Implemente network segmentation
-   - Configure logging de rede
+2. **Use Terraform state remoto seguro**
+   ```hcl
+   terraform {
+     backend "azurerm" {
+       # Configure com criptografia
+     }
+   }
+   ```
 
-3. **Storage**
-   - Use Premium SSD quando possível
-   - Habilite encryption at rest
-   - Configure backup adequado
-   - Monitore access patterns
+3. **Implemente network security groups adequados**
+   ```hcl
+   module "vm" {
+     source = "github.com/reivson/tf-az-module-vm"
+     
+     security_rules = [
+       {
+         name     = "SSH"
+         priority = 1001
+         access   = "Allow"
+         protocol = "Tcp"
+         direction = "Inbound"
+         source_port_range = "*"
+         destination_port_range = "22"
+         source_address_prefix = "YOUR_SPECIFIC_IP"  # Não use "*"
+         destination_address_prefix = "*"
+       }
+     ]
+   }
+   ```
 
-4. **Compliance**
-   - Revise tags obrigatórias
-   - Valide configurações com policies
-   - Documente decisões de arquitetura
-   - Implemente least privilege
+4. **Use Azure Key Vault para senhas**
+   ```hcl
+   module "vm" {
+     source = "github.com/reivson/tf-az-module-vm"
+     
+     admin_password_key_vault_secret_id = data.azurerm_key_vault_secret.vm_password.id
+   }
+   ```
 
-### Exemplo Seguro
+### Para Contribuidores
 
-```hcl
-module "vm" {
-  source = "github.com/your-org/tf-az-module-vm?ref=v1.0.0"
+1. **Nunca commite secrets**
+   - Use `.gitignore` adequadamente
+   - Escaneie commits com ferramentas como git-secrets
 
-  # Configurações básicas
-  resource_group_name = "rg-production"
-  location           = "East US"
-  vm_name            = "vm-app-prod"
+2. **Valide inputs de usuário**
+   ```hcl
+   variable "admin_username" {
+     type        = string
+     description = "Nome do usuário administrador"
+     
+     validation {
+       condition     = can(regex("^[a-zA-Z][a-zA-Z0-9_-]{2,19}$", var.admin_username))
+       error_message = "Username deve ter 3-20 caracteres, começar com letra."
+     }
+   }
+   ```
 
-  # Rede (usar subnet privada)
-  subnet_id        = data.azurerm_subnet.private.id
-  create_public_ip = false  # Evitar IP público
+3. **Use least privilege principle**
+   - Configure permissões mínimas necessárias
+   - Documente requirements de permissão
 
-  # Segurança
-  os_type        = "linux"
-  admin_username = "azureuser"
-  ssh_public_key = data.azurerm_key_vault_secret.ssh_key.value
-  
-  # Sem senha para Linux
-  admin_password = null
-  disable_password_authentication = true
+## 🔍 Auditoria de Segurança
 
-  # Storage seguro
-  os_disk_storage_account_type = "Premium_LRS"
-  
-  # NSG restritivo (exemplo)
-  nsg_rules = [
-    {
-      name                       = "SSH-from-jumpbox"
-      priority                   = 1000
-      direction                  = "Inbound"
-      access                     = "Allow"
-      protocol                   = "Tcp"
-      source_port_range          = "*"
-      destination_port_range     = "22"
-      source_address_prefix      = "10.0.0.10/32"  # IP do jumpbox
-      destination_address_prefix = "*"
-    }
-  ]
+### Verificações Automáticas
 
-  # Identidade gerenciada
-  identity_type = "SystemAssigned"
+Nosso pipeline CI/CD inclui:
 
-  # Monitoramento
-  enable_boot_diagnostics = true
+- **Terraform security scanning** com Checkov
+- **Dependency scanning** para providers
+- **SAST (Static Application Security Testing)**
+- **Infrastructure as Code security scanning**
 
-  # Tags para compliance
-  tags = {
-    Environment = "production"
-    DataClass   = "confidential"
-    Owner       = "app-team"
-    CostCenter  = "12345"
-  }
-}
-```
+### Verificações Manuais
 
-## Auditoria e Compliance
+Realizamos reviews manuais para:
 
-O módulo inclui:
+- Mudanças em configurações de rede
+- Novas funcionalidades de segurança
+- Updates de dependências críticas
 
-- Validações automáticas de entrada
-- Configurações seguras por padrão
-- Suporte para tags de compliance
-- Outputs para auditoria
-- Integração com Azure Policy
+## 📋 Security Checklist
 
-## Contact
+Antes de usar este módulo em produção:
 
-Para questões de segurança: `security@your-org.com`
-Para outras questões: Abra uma issue no GitHub
+- [ ] ✅ Configurei network security groups adequados
+- [ ] ✅ Habilitei monitoramento e logging
+- [ ] ✅ Configurei backup e disaster recovery
+- [ ] ✅ Implementei principle of least privilege
+- [ ] ✅ Configurei update management
+- [ ] ✅ Habilitei Azure Security Center
+- [ ] ✅ Configurei Key Vault para secrets
+- [ ] ✅ Implementei network segmentation
+- [ ] ✅ Configurei just-in-time access (se aplicável)
+- [ ] ✅ Testei procedures de incident response
+
+## 🎯 Recursos de Segurança
+
+### Azure Security Features
+
+Este módulo suporta as seguintes features de segurança do Azure:
+
+- **Azure Security Center** integration
+- **Azure Monitor** logging
+- **Network Security Groups** customizáveis
+- **Azure Key Vault** integration
+- **Managed Identity** support
+- **Disk encryption** options
+- **Backup** configuration
+
+### Compliance
+
+O módulo foi projetado considerando:
+
+- **CIS Azure Foundations Benchmark**
+- **Azure Security Benchmark**
+- **NIST Cybersecurity Framework**
+- **ISO 27001** requirements
+
+## 📞 Contato de Segurança
+
+- **Email**: reivson@example.com
+- **PGP Key**: [Link para chave pública]
+- **Security Advisories**: GitHub Security Advisories
+
+## 📋 Histórico de Security Advisories
+
+Todas as vulnerabilidades corrigidas são documentadas em:
+- [GitHub Security Advisories](https://github.com/reivson/tf-az-module-vm/security/advisories)
+- Release notes com tag `security`
+
+---
+
+**Obrigado por ajudar a manter nosso módulo seguro! 🔒**

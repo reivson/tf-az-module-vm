@@ -1,0 +1,77 @@
+name: ❓ Question
+description: Fazer uma pergunta sobre o módulo
+title: "[QUESTION] "
+labels: ["question", "help wanted"]
+assignees:
+  - reivson
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tem uma dúvida? Estamos aqui para ajudar! 🤝
+
+  - type: textarea
+    id: question
+    attributes:
+      label: ❓ Sua Pergunta
+      description: Qual é sua dúvida sobre o módulo?
+      placeholder: "Como posso configurar...?"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 🏷️ Categoria
+      description: Que categoria melhor descreve sua pergunta?
+      options:
+        - "🔧 Configuração - Como configurar o módulo"
+        - "🌐 Networking - Questões de rede"
+        - "🔒 Segurança - Configurações de segurança"
+        - "💾 Storage - Configuração de discos e storage"
+        - "🐧 SO - Distribuições Linux ou Windows"
+        - "🔄 CI/CD - Integração com pipelines"
+        - "⚡ Performance - Otimização e performance"
+        - "💰 Custos - Otimização de custos"
+        - "🛠️ Troubleshooting - Resolução de problemas"
+        - "📋 Melhores Práticas - Recomendações de uso"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📋 Contexto
+      description: Forneça mais detalhes sobre seu cenário
+      placeholder: "Estou tentando criar VMs para um ambiente de desenvolvimento..."
+
+  - type: textarea
+    id: current_config
+    attributes:
+      label: 🔧 Configuração Atual (opcional)
+      description: Cole sua configuração atual se relevante
+      render: hcl
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: 🔍 O que você já tentou?
+      description: Que abordagens você já tentou?
+
+  - type: checkboxes
+    id: documentation
+    attributes:
+      label: 📚 Documentação
+      description: Você já consultou a documentação?
+      options:
+        - label: "Li o README principal"
+        - label: "Verifiquei os exemplos"
+        - label: "Procurei em issues existentes"
+        - label: "Consultei a documentação do Terraform"
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: 💬 Informações Adicionais
+      description: Qualquer outra informação que possa ajudar

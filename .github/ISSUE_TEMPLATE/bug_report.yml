@@ -1,0 +1,90 @@
+name: 🐛 Bug Report
+description: Relatar um bug ou problema no módulo
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees:
+  - reivson
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por relatar um bug! Por favor, forneça informações detalhadas para nos ajudar a reproduzir e corrigir o problema.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Descrição do Bug
+      description: Descreva claramente o que está acontecendo
+      placeholder: Ex. "A VM não é criada quando uso a distribuição CentOS..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: terraform_config
+    attributes:
+      label: 🔧 Configuração Terraform
+      description: Cole sua configuração Terraform (remova informações sensíveis)
+      render: hcl
+      placeholder: |
+        module "vm" {
+          source = "github.com/reivson/tf-az-module-vm?ref=v1.0.2"
+          # sua configuração aqui...
+        }
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Comportamento Esperado
+      description: O que você esperava que acontecesse?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Comportamento Atual
+      description: O que realmente aconteceu?
+    validations:
+      required: true
+
+  - type: textarea
+    id: terraform_output
+    attributes:
+      label: 📋 Output do Terraform
+      description: Cole o output completo do comando terraform (terraform plan, apply, etc.)
+      render: shell
+
+  - type: dropdown
+    id: terraform_version
+    attributes:
+      label: 🔖 Versão do Terraform
+      description: Qual versão do Terraform você está usando?
+      options:
+        - "1.2.x"
+        - "1.3.x"
+        - "1.4.x"
+        - "1.5.x"
+        - "1.6.x"
+        - "1.7.x"
+        - "1.8.x"
+        - "Outra (especificar nos comentários)"
+    validations:
+      required: true
+
+  - type: input
+    id: module_version
+    attributes:
+      label: 📦 Versão do Módulo
+      description: Qual versão do módulo você está usando?
+      placeholder: "v1.0.2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: 💬 Contexto Adicional
+      description: Qualquer outra informação relevante (screenshots, logs, etc.)

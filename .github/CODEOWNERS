@@ -1,0 +1,54 @@
+# ==============================================================================
+# CODE OWNERS - Terraform Azure VM Module
+# ==============================================================================
+# 
+# Este arquivo define quem deve revisar pull requests em diferentes partes do código.
+# Para mais informações: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# ==============================================================================
+# GLOBAL OWNERS - Revisão obrigatória para qualquer mudança
+# ==============================================================================
+
+# Todos os arquivos requerem aprovação do owner principal
+* @reivson
+
+# ==============================================================================
+# TERRAFORM CODE - Arquivos principais do módulo
+# ==============================================================================
+
+# Arquivos principais do Terraform
+*.tf @reivson
+*.tfvars @reivson
+
+# ==============================================================================
+# CI/CD E AUTOMATION
+# ==============================================================================
+
+# Workflows do GitHub Actions
+.github/ @reivson
+
+# Scripts de automação
+scripts/ @reivson
+
+# ==============================================================================
+# DOCUMENTATION
+# ==============================================================================
+
+# Documentação principal
+README.md @reivson
+CHANGELOG.md @reivson
+CONTRIBUTING.md @reivson
+
+# ==============================================================================
+# EXAMPLES - Exemplos de uso
+# ==============================================================================
+
+# Exemplos podem ter revisores específicos se necessário
+examples/ @reivson
+
+# ==============================================================================
+# TESTS
+# ==============================================================================
+
+# Testes automatizados
+tests/ @reivson

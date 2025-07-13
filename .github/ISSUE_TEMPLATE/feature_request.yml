@@ -1,0 +1,87 @@
+name: ✨ Feature Request
+description: Sugerir uma nova funcionalidade para o módulo
+title: "[FEATURE] "
+labels: ["enhancement", "needs-triage"]
+assignees:
+  - reivson
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por sugerir uma nova funcionalidade! Vamos trabalhar juntos para melhorar o módulo.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🎯 Problema/Necessidade
+      description: Qual problema esta funcionalidade resolve?
+      placeholder: "Atualmente não é possível... e isso dificulta..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 💡 Solução Proposta
+      description: Como você imagina que essa funcionalidade deveria funcionar?
+      placeholder: "Gostaria que o módulo pudesse..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternativas Consideradas
+      description: Você considerou alguma alternativa ou workaround?
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 📊 Prioridade
+      description: Qual a prioridade desta funcionalidade para você?
+      options:
+        - "🔥 Alta - Bloqueando meu projeto"
+        - "🟡 Média - Seria muito útil"
+        - "🟢 Baixa - Nice to have"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: area
+    attributes:
+      label: 🎛️ Área do Módulo
+      description: Que parte do módulo seria afetada?
+      options:
+        - label: "Configuração de VM (tamanho, imagem, etc.)"
+        - label: "Networking (VNet, subnets, NSG)"
+        - label: "Storage (discos, backup)"
+        - label: "Segurança (identidade, certificados)"
+        - label: "Monitoramento (logs, métricas)"
+        - label: "Documentação"
+        - label: "Exemplos"
+        - label: "Testes"
+
+  - type: textarea
+    id: example
+    attributes:
+      label: 📝 Exemplo de Uso
+      description: Como essa funcionalidade seria usada? (pseudo-código HCL)
+      render: hcl
+      placeholder: |
+        # Exemplo de como usar a nova funcionalidade
+        module "vm" {
+          source = "github.com/reivson/tf-az-module-vm"
+          
+          # nova funcionalidade aqui
+          new_feature_enabled = true
+          new_feature_config = {
+            # configuração
+          }
+        }
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: 💬 Contexto Adicional
+      description: Qualquer outra informação relevante (links, referências, etc.)
